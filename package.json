@@ -1,0 +1,22 @@
+{
+  "name": "express-middleware-demo",
+  "version": "1.0.0",
+  "description": "express-middleware-demo",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cheq-ai/express-middleware-demo.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cheq-ai/express-middleware-demo/issues"
+  },
+  "homepage": "https://github.com/cheq-ai/express-middleware-demo#readme"
+}
