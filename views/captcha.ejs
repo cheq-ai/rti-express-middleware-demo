@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Sign up!</title>
+    <script src="<%= captchaSrc %>"></script>
+
+</head>
+<body >
+<body style="text-align: center">
+
+<h2>Are You a ROBOT? :)</h2>
+<iframe width="700" height="400" src="https://www.youtube.com/embed/LButXcZ57pc?autoplay=1" title="YouTube video player"
+        frameborder="0" allow="autoplay" allowfullscreen></iframe>
+</body>
+<div id="recaptcha" style="display:block; width: 50%; margin: 10px auto 10px auto;"></div>
+
+
+</div>
+
+<script>
+    var siteKey = "<%= siteKey %>";
+    if(siteKey) {
+        grecaptcha.ready(function () {
+            var siteKey = "<%= siteKey %>";
+            if (siteKey) {
+                grecaptcha.render("recaptcha", {
+                    sitekey: siteKey,
+                    callback: function (token) {
+                        window.location.replace(`/verify?token=${token}`)
+                    }
+                })
+            }
+        });
+    }
+</script>
+</body>
+</html>
