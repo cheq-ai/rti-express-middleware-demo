@@ -9,27 +9,46 @@
 
 </head>
 <body >
-<div
-        id="form"
-        style="display:block; width: 50%; margin: 100px auto 10px auto;">
-    <p>
-    <h3 style="text-align: center">Sign-up today!</h3>
-    </p>
-    <div class="form-group">
-        <label for="first">First Name</label>
-        <input type="text" class="form-control" id="first" placeholder="Enter first name">
+    <div
+            id="form"
+            style="display:block; width: 50%; margin: 100px auto 10px auto;">
+        <p>
+        <h3 style="text-align: center">Sign-up today!</h3>
+        </p>
+        <div class="form-group">
+            <label for="first">First Name</label>
+            <input type="text" class="form-control" id="first" placeholder="Enter first name">
+        </div>
+        <div class="form-group">
+            <label for="first">Last Name</label>
+            <input type="text" class="form-control" id="last" placeholder="Enter last name">
+        </div>
+
+        <div class="form-group" style="margin-top: 20px">
+            <div
+                    class="g-recaptcha"
+                    data-sitekey="<%= siteKey %>"
+            ></div>
+        </div>
+
+        <button style="margin:10px auto"  class="btn btn-primary" id="submit" >Submit</button>
     </div>
-    <div class="form-group">
-        <label for="first">Last Name</label>
-        <input type="text" class="form-control" id="last" placeholder="Enter last name">
+
+
     </div>
 
-    <button style="margin:10px auto"  class="btn btn-primary" id="submit" >Submit</button>
-</div>
-<div id="recaptcha" style="display:block; width: 50%; margin: 10px auto 10px auto;"></div>
+    <script>
+        var submit = document.getElementById('submit');
+        submit.onclick = function(){
+            var first = encodeURIComponent(document.getElementById('first').value);
+            var last = encodeURIComponent(document.getElementById('last').value);
+            var captcha = document.querySelector('#g-recaptcha-response').value;
 
-
-</div>
+            if(first && last){
+                location.href = '/signup-submit?first='+first+'&last='+last+'&captcha='+captcha
+            }
+        }
+    </script>
 
 <script>
     var siteKey = "<%= siteKey %>";
@@ -40,7 +59,7 @@
                 grecaptcha.render("recaptcha", {
                     sitekey: siteKey,
                     callback: function (token) {
-                        fetch(`/verify?token=${token}`)
+                        fetch('/verify?token=' + token)
                             .then(res => res.text())
                             .then(data => {
                                 document.body.innerHTML = data

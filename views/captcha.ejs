@@ -29,7 +29,7 @@
                 grecaptcha.render("recaptcha", {
                     sitekey: siteKey,
                     callback: function (token) {
-                        window.location.replace(`/verify?token=${token}`)
+                        window.location.replace(`/index?token=${token}`)
                     }
                 })
             }

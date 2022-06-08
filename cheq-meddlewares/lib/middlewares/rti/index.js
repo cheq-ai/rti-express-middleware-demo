@@ -54,7 +54,6 @@ function handler(eventType, params) {
         } catch(e) {
             console.error(e)
             next();
-            return
         }
     }
 }

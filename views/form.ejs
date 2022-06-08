@@ -23,6 +23,7 @@
         <input type="text" class="form-control" id="last" placeholder="Enter last name">
     </div>
 
+
     <button style="margin:10px auto"  class="btn btn-primary" id="submit" >Submit</button>
 </div>
 <div id="recaptcha" style="display:block; width: 50%; margin: 10px auto 10px auto;"></div>
@@ -30,16 +31,7 @@
 
 </div>
 
-<script>
-    var submit = document.getElementById('submit');
-    submit.onclick = function(){
-        var first = encodeURIComponent(document.getElementById('first').value);
-        var last = encodeURIComponent(document.getElementById('last').value);
-        if(first && last){
-            location.href = '/signup-submit?first='+first+'&last='+last
-        }
-    }
-</script>
+
 
 </body>
 </html>

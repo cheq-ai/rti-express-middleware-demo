@@ -4,7 +4,7 @@ const port = 8080;
 const {rti, eventsTypes} = require('./cheq-meddlewares')
 const cookiesParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const recaptcha = require('./helpers/reCaptcha');
+const recaptcha = require('./helpers/captcha');
 
 
 
@@ -25,14 +25,22 @@ app.set('view engine', 'ejs');
 
 app.get('/', rtiMiddleware(eventsTypes.PAGE_LOAD), (req, res) => {
 	res.render('index', {
-		captchaSrc: "",
-		siteKey: ""
+		captchaSrc: res.locals.captchaSrc || '',
+		siteKey: res.locals.siteKey || '',
+
 	});
 });
 
 
 app.get('/signup-submit', rtiMiddleware(eventsTypes.FORM_SUBMISSION), function(req, res) {
-		return res.render('pass');
+	debugger
+	const isValidCaptcha = recaptcha.verify(req, res)
+	if(isValidCaptcha) {
+		res.render('pass');
+	} else {
+		res.status(403).send('Visitor is invalid, session blocked!');
+	}
+
 });
 
 app.get('/verify', recaptcha.verify)
