@@ -61,6 +61,7 @@ function handler(eventType, params) {
 
 
 function handleRTIResponse(data, req, res, next, params) {
+    res.locals.reason = JSON.stringify(data)
     if(!data || !data.threatTypeCode || typeof data.isInvalid !== 'boolean' || params.mode === rtiMode.MONITOR) {
         next();
     }

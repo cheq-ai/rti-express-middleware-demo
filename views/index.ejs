@@ -26,6 +26,7 @@
 
         <div class="form-group" style="margin-top: 20px">
             <div
+                    id="recaptcha"
                     class="g-recaptcha"
                     data-sitekey="<%= siteKey %>"
             ></div>
@@ -34,10 +35,30 @@
         <button style="margin:10px auto"  class="btn btn-primary" id="submit" >Submit</button>
     </div>
 
+    <div id="message" style="
+    border: 1px solid;
+    position: fixed;
+    padding: 10px;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: monospace;
+    text-align:center;
+">
+
+    </div>
 
     </div>
 
     <script>
+        var messageBoard = document.getElementById('message');
+        var cheqReason =<%- reason %>
+        document.getElementById('form').style.display = 'block';
+        debugger
+        messageBoard.innerHTML = `Message from Cheq <br><b>Invalid: ${cheqReason.isInvalid}</b><br><b>Threat type code: ${cheqReason.threatTypeCode}</b>`;
+
+
+
         var submit = document.getElementById('submit');
         submit.onclick = function(){
             var first = encodeURIComponent(document.getElementById('first').value);

@@ -27,23 +27,26 @@ app.get('/', rtiMiddleware(eventsTypes.PAGE_LOAD), (req, res) => {
 	res.render('index', {
 		captchaSrc: res.locals.captchaSrc || '',
 		siteKey: res.locals.siteKey || '',
+		reason: res.locals.reason || '',
 
 	});
 });
 
 
 app.get('/signup-submit', rtiMiddleware(eventsTypes.FORM_SUBMISSION), function(req, res) {
-	debugger
-	const isValidCaptcha = recaptcha.verify(req, res)
-	if(isValidCaptcha) {
-		res.render('pass');
-	} else {
-		res.status(403).send('Visitor is invalid, session blocked!');
-	}
+	recaptcha.verify(req, res)
+		.then(isValidCaptcha => {
+			if(isValidCaptcha) {
+				res.render('pass');
+			} else {
+				res.status(403).send('Visitor is invalid, session blocked!');
+			}
+		})
+
 
 });
 
-app.get('/verify', recaptcha.verify)
+
 
 
 app.listen(port);

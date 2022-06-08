@@ -11,11 +11,13 @@ module.exports.middleware = function middleware (req, res, next) {
 
 
 module.exports.verify = function verify(req, res, next) {
-        const { token } = req.query;
-        if(token){
-            axios.post(RECAPTCHA_VERIFY_URL, `secret=${process.env.RECAPTCH_SITE_SECRET}&response=${token}`, {
+        const { captcha } = req.query;
+        if(captcha){
+            return  axios.post(RECAPTCHA_VERIFY_URL, `secret=${process.env.RECAPTCH_SITE_SECRET}&response=${captcha}`, {
                 headers: { "Content-Type": "application/x-www-form-urlencoded" }
-            }).then(captchaRes => captchaRes.data.success)
+            }).then(captchaRes => {
+                return captchaRes.data.success
+            })
 
         } else {
             return false
