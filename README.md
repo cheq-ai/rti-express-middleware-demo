@@ -12,7 +12,7 @@ In order to run the demo you'll need to create a couple environment variables.
     RECAPTCH_SITE_SECRET - see https://www.google.com/recaptcha
     
 ```
-Once config file have been setup properly, simply run the demo by
+Then run
 
 ````bash
 $ export CHEQ_API_KEY=abcdddd-dddd3-492f-9417-66a1f22b4daa 
