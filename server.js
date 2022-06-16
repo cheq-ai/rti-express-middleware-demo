@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const port = 8080;
-const {rti, eventsTypes} = require('./cheq-meddlewares')
+const {rti, eventsTypes} = require('@cheq.ai/cheq-middlewares')
 const cookiesParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const recaptcha = require('./helpers/captcha');
