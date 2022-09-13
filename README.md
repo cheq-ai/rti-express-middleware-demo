@@ -25,6 +25,40 @@ $ node server.js
 And visit  `localhost:8080`
 
 **Notes:**
-* The `views/block.ejs` represent a page where an invalid request will reach.
-* The `views/form.ejs` represent a page where a valid request will reach.
-* The `views/captcha.ejs` represent a suspicious request that is validated by captcha.
+The configuration file can be found at the root directory `config.js`
+
+````js
+const recaptcha = require('./helpers/captcha');
+
+module.exports = {
+	apiKey: process.env.CHEQ_API_KEY,
+	tagHash: process.env.CHEQ_TAG_HASH,
+	callback: recaptcha.middleware,
+	redirectUrl: 'https://invalid-user.com',
+	apiEndpoint: 'https://rti-us-east-1.cheqzone.com',
+	trustedIPHeader: 'Client-Ip',
+	mode: 'blocking',
+	timeout: 1000,
+	URIExclusion: ['/about', /\/add_to_cart.*item=698/],
+	threatTypesCodes: {
+		blockRedirect: [2, 3, 6, 7, 9, 13],
+		captcha: [4, 5]
+	},
+	getResourceType: function(req) {
+		if(req.method === 'POST') {
+			return 'application/json'
+		} else if(req.method === 'GET'){
+			return 'text/html'
+		}
+
+	},
+	getChannel: function getChannel(req) {
+		return req.query.channel
+	},
+	getJa3: function getJa3(req) {
+		return req.query.ja3
+	}
+
+}
+
+````

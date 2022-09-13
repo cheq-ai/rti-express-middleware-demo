@@ -4,16 +4,11 @@ const port = 8080;
 const {rti, eventsTypes} = require('@cheq.ai/cheq-middlewares')
 const cookiesParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const recaptcha = require('./helpers/captcha');
+const config = require('./config');
 
 
 
-const rtiMiddleware  = rti({
-	apiKey: process.env.CHEQ_API_KEY,
-	tagHash: process.env.CHEQ_TAG_HASH,
-	callback: recaptcha.middleware,
-	redirectUrl: 'https://invalid-user.com'
-});
+const rtiMiddleware  = rti(config);
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -27,7 +22,9 @@ app.get('/', rtiMiddleware(eventsTypes.PAGE_LOAD), (req, res) => {
 	res.render('index', {
 		captchaSrc: res.locals.captchaSrc || '',
 		siteKey: res.locals.siteKey || '',
-		reason: res.locals.reason || '',
+		isInvalid: res.locals.isInvalid || 'False',
+		threatTypeCode: res.locals.threatTypeCode || '0'
+
 
 	});
 });

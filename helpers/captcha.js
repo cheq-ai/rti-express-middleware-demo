@@ -6,6 +6,7 @@ const url = require('url')
 module.exports.middleware = function middleware (req, res, next) {
     res.locals.captchaSrc = `https://www.google.com/recaptcha/api.js?render=${process.env.RECAPTCH_SITE_KEY}`;
     res.locals.siteKey = process.env.RECAPTCH_SITE_KEY;
+    res.locals.isInvalid = 'suspicious'
     next();
 }
 

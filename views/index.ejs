@@ -52,10 +52,12 @@
 
     <script>
         var messageBoard = document.getElementById('message');
-        var cheqReason =<%- reason %>
+        var isInvalid = "<%- isInvalid %>";
+        var threatTypeCode = "<%- threatTypeCode %>";
+
         document.getElementById('form').style.display = 'block';
         debugger
-        messageBoard.innerHTML = `Message from Cheq <br><b>Invalid: ${cheqReason.isInvalid}</b><br><b>Threat type code: ${cheqReason.threatTypeCode}</b>`;
+        messageBoard.innerHTML = `Message from Cheq <br><b>Invalid: ${isInvalid}</b><br><b>Threat type code: ${threatTypeCode}</b>`;
 
 
 
